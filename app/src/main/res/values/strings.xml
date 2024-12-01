@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">ES Words</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+    <string name="beginner_level_words">Beginner Level Words</string>
+    <string name="advanced_level_words">Advanced Level Words</string>
+    <string name="speakerIcon">speakerIcon</string>
+    <string name="translate">Translate</string>
+    <string name="info">Info</string>
+    <string name="close">Close</string>
+    <string name="project_info">App Name: ES Words\n\nDeveloper: Isuru Hettiarachchi\n\nThis app contains a collection of 5000 English words, each with its Spanish translation and a simple English definition. It is designed to help users improve their vocabulary and language skills in an easy and interactive way.\n\nFeatures:\n- Beginner and advanced word levels\n- Clear definitions and translations\n- Interactive and user-friendly design\n\nFor more information, contact: isurusula@gmail.com</string>
+    <string name="about_the_app">About the App</string>
+    <string name="translate_btn">Spanish Translator</string>
+    <string name="enter_text_in_english">Enter text in English</string>
+    <string name="speaker_icon_for_english">Speaker icon for English</string>
+    <string name="translation_will_appear_here">Translation will appear here</string>
+    <string name="speaker_icon_for_translation">Speaker icon for translation</string>
+    <string name="translate_btn_final">Translate</string>
+</resources>

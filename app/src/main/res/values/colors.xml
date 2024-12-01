@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary color used in the app -->
+    <color name="colorPrimary">#6200EE</color> <!-- You can change this to your preferred color -->
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <!-- Text colors -->
+    <color name="black">#000000</color>
+    <color name="grey">#757575</color>
+    <color name="lightGrey">#D3D3D3</color>
+
+    <!-- Background color -->
+    <color name="white">#FFFFFF</color>
+
+    <!-- Primary Colors -->
+    <color name="lightGradientStart">#FFFFFF</color>
+    <color name="lightGradientEnd">#B771C7</color>
+    <color name="darkPressedBackground">#9C27B0</color>
+    <color name="buttonStrokeLight">#000000</color>
+    <color name="buttonStrokeDark">#FFFFFF</color>
+
+    <!-- Text Colors -->
+    <color name="buttonTextColorDefault">#000000</color>
+    <color name="buttonTextColorPressed">#FFFFFF</color>
+</resources>

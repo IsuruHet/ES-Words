@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+        <!-- Base Light Theme -->
+        <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+            <item name="colorPrimary">@color/colorPrimary</item>
+            <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+            <item name="colorAccent">@color/colorAccent</item>
+            <item name="android:textColorPrimary">@color/black</item>
+            <item name="android:textColorSecondary">#2F2F2F</item>
+            <item name="android:windowBackground">@color/white</item>
+            <item name="android:actionBarStyle">@style/CustomActionBar</item>
+        </style>
+
+
+    <!-- Light Mode Action Bar -->
+    <style name="CustomActionBar" parent="Widget.AppCompat.ActionBar.Solid">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:titleTextStyle">@style/ActionBarTitleText</item>
+    </style>
+
+
+
+    <!-- Title Text Styles -->
+    <style name="ActionBarTitleText">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="ActionBarTitleTextDark">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+</resources>

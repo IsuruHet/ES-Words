@@ -1,0 +1,19 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape>
+            <solid android:color="@color/darkPressedBackground" />
+            <corners android:radius="50dp" /> <!-- Rounded corners with a fixed value -->
+            <stroke android:width="2dp" android:color="@color/buttonStrokeDark" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <gradient
+                android:startColor="#E9316F"
+                android:endColor="@color/lightGradientEnd"
+                android:angle="45" />
+            <corners android:radius="50dp" /> <!-- Match corner rounding here -->
+            <stroke android:width="2dp" android:color="@color/buttonStrokeLight" />
+        </shape>
+    </item>
+</selector>

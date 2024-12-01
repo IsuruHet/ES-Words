@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:fillViewport="true"
+    tools:context=".TranslateActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:weightSum="1">
+
+        <!-- English Text Input Box -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <EditText
+                android:id="@+id/editTextEnglish"
+                android:layout_width="0dp"
+                android:layout_height="180dp"
+                android:layout_weight="1"
+                android:autofillHints=""
+                android:hint="@string/enter_text_in_english"
+                android:padding="8dp"
+                android:inputType="textMultiLine"
+                android:scrollbars="vertical"
+                android:gravity="start|top"
+                android:textSize="18sp"
+                android:maxLines="6"
+                android:minLines="3" />
+
+            <ImageView
+                android:id="@+id/speakerIconEnglish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:contentDescription="@string/speaker_icon_for_english"
+                android:src="@drawable/ic_speaker"
+                android:background="@drawable/round_background"/>
+        </LinearLayout>
+
+        <!-- Translation Output Box -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp"
+            tools:ignore="UseCompoundDrawables">
+
+            <TextView
+                android:id="@+id/textViewTranslation"
+                android:layout_width="0dp"
+                android:layout_height="180dp"
+                android:layout_weight="1"
+                android:padding="8dp"
+                android:text="@string/translation_will_appear_here"
+                android:gravity="start|top"
+                android:lines="3"
+                android:textSize="18sp"
+                android:scrollbars="vertical"
+                android:maxLines="6" />
+
+            <ImageView
+                android:id="@+id/speakerIconTranslation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:contentDescription="@string/speaker_icon_for_translation"
+                android:src="@drawable/ic_speaker"
+                android:background="@drawable/round_background"/>
+        </LinearLayout>
+
+        <!-- Translate Button -->
+        <Button
+            android:id="@+id/buttonTranslate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/translate_btn_final"
+            android:padding="12dp"
+            android:background="@drawable/mixed_button_background"
+            android:textColor="@android:color/white"
+            android:textAllCaps="false"/>
+
+    </LinearLayout>
+</ScrollView>

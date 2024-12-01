@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Info Button -->
+    <ImageView
+        android:id="@+id/infoBtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:contentDescription="@string/info"
+        android:src="@drawable/ic_info"
+        android:layout_gravity="end"
+        android:layout_margin="8dp"
+        android:padding="8dp"
+        android:background="@drawable/round_background"
+     />
+
+    <!-- Main Content Layout -->
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="16dp">
+
+        <!-- Theme Toggle Switch -->
+        <Switch
+            android:id="@+id/themeToggle"
+            android:layout_marginBottom="200dp"
+            android:layout_width="58dp"
+            android:layout_height="48dp"
+            android:thumb="@drawable/custom_thumb"
+            android:track="@drawable/custom_track"
+            android:textOff="@string/light"
+            android:textOn="@string/dark"
+            android:layout_gravity="center"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+        <!-- Translation Button -->
+        <Button
+            android:id="@+id/translationBtn"
+            android:text="@string/translate_btn"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/mixed_button_background"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:textColorHighlight="@color/black" />
+
+        <!-- Beginner Button -->
+        <Button
+            android:id="@+id/beginnerBtn"
+            android:text="@string/beginner_level_words"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/mixed_button_background"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:textColorHighlight="@color/black" />
+
+        <!-- Advanced Button -->
+        <Button
+            android:id="@+id/advancedBtn"
+            android:text="@string/advanced_level_words"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/mixed_button_background"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:textColorHighlight="@color/black" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</FrameLayout>
