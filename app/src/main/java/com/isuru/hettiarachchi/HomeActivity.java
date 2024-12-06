@@ -1,18 +1,20 @@
 package com.isuru.hettiarachchi;
 
-
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 import com.isuru.hettiarachchi.adapters.WordAdapter;
 import com.isuru.hettiarachchi.models.Word;
 import com.isuru.hettiarachchi.utils.EncryptionUtil;
@@ -28,7 +30,7 @@ import java.util.List;
 public class HomeActivity extends AppCompatActivity {
     private List<Word> wordList = new ArrayList<>();
     private WordAdapter wordAdapter;
-
+    private SearchView searchView;
 
     @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     @Override
@@ -37,50 +39,62 @@ public class HomeActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home);
 
+        // Initialize RecyclerView
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        //Load the decrypted JSON data
+        // Load decrypted JSON data
         loadWordsFromAssets();
 
-        wordAdapter = new WordAdapter(this,wordList);
+        // Initialize adapter and set it to RecyclerView
+        wordAdapter = new WordAdapter(this, wordList);
         recyclerView.setAdapter(wordAdapter);
 
+        // Initialize SearchView and set up the query listener
+        searchView = findViewById(R.id.searchView);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextChange(String query) {
+                List<Word> filteredList = filterList(query);
+                if (filteredList != null) {
+                    wordAdapter.updateWordList(filteredList);
+                } else {
+                    Log.e("HomeActivity", "Filtered list is null");
+                }
+                return true;
+            }
 
-        //Set up SearchView for filtering words
-        SearchView searchView = findViewById(R.id.searchView);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
-                                              @Override
-                                              public boolean onQueryTextChange(String query) {
-                                                  List<Word> filteredList = filterList(query);
-                                                  // Always check if filteredList is not null before passing to the adapter
-                                                  if (filteredList != null) {
-                                                      wordAdapter.updateWordList(filteredList); // Update the adapter's data
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+        });
+    }
 
-                                                  } else {
-                                                      Log.e("MainActivity", "Filtered list is null");
-                                                  }
-                                                  return true;
-                                              }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Clear focus and hide the keyboard when returning to this activity
+        if (searchView != null) {
+            searchView.clearFocus();
+        }
+        hideKeyboard();
+    }
 
-                                              @Override
-                                              public boolean onQueryTextSubmit(String query) {
-
-                                                  return false;
-
-                                              }
-
-                                          }
-        );
-
-
-
+    private void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            View currentFocus = getCurrentFocus();
+            if (currentFocus != null) {
+                imm.hideSoftInputFromWindow(currentFocus.getWindowToken(), 0);
+            }
+        }
     }
 
     private List<Word> filterList(String query) {
         List<Word> filteredList = new ArrayList<>();
         if (query == null || query.isEmpty()) {
-            return wordList;  // If the query is empty, return the original list
+            return wordList; // If the query is empty, return the original list
         }
 
         for (Word word : wordList) {
@@ -94,23 +108,14 @@ public class HomeActivity extends AppCompatActivity {
         return filteredList;
     }
 
-
     @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     private void loadWordsFromAssets() {
-        // Retrieve json_path from the Intent
         String jsonPath = getIntent().getStringExtra("json_path");
         try {
-            // Read encrypted data from the assets folder
             assert jsonPath != null;
             InputStream inputStream = getAssets().open(jsonPath);
+            String encryptedJson = readInputStream(inputStream);
 
-            // Use an alternative method to read the InputStream
-            String encryptedJson = null;
-
-                encryptedJson = readInputStream(inputStream);
-
-
-            // Decrypt the encrypted data
             String SECRET_KEY = "your_secret_key";
             String decryptedJson = EncryptionUtil.decrypt(encryptedJson, SECRET_KEY);
 
@@ -118,7 +123,6 @@ public class HomeActivity extends AppCompatActivity {
                 throw new IllegalStateException("Decrypted JSON is null or empty");
             }
 
-            // Parse the decrypted JSON into Word objects using Gson
             Gson gson = new Gson();
             Word[] words = gson.fromJson(decryptedJson, Word[].class);
 
@@ -126,39 +130,23 @@ public class HomeActivity extends AppCompatActivity {
                 throw new IllegalStateException("Parsed JSON resulted in an empty or null Word array");
             }
 
-            // Initialize wordList and add the words to it
             wordList = new ArrayList<>();
             Collections.addAll(wordList, words);
 
-        } catch (IllegalStateException e) {
-            Log.e("MainActivity", "Error processing the decrypted JSON", e);
-        } catch (JsonSyntaxException e) {
-            Log.e("MainActivity", "Error parsing JSON with Gson", e);
-        } catch (IOException e) {
-            Log.e("MainActivity", "Error reading the encrypted file", e);
         } catch (Exception e) {
-            Log.e("MainActivity", "Unexpected error", e);
+            Log.e("HomeActivity", "Error loading words", e);
         }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     private String readInputStream(InputStream inputStream) throws IOException {
-        if (inputStream == null) {
-            throw new IllegalArgumentException("InputStream cannot be null");
-        }
-
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];
-
-
         int length;
         while ((length = inputStream.read(buffer)) != -1) {
             byteArrayOutputStream.write(buffer, 0, length);
         }
-
-        // Use InputStreamReader to convert byte array to String with proper encoding
         byte[] byteArray = byteArrayOutputStream.toByteArray();
-        return new String(byteArray, StandardCharsets.UTF_8);
+        return new String(byteArray,StandardCharsets.UTF_8);
     }
-
 }
